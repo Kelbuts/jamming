@@ -1,10 +1,10 @@
 import './SearchBar.css';
 
 
-function SearchBar() {
+function SearchBar(props) {
   return (
     <div className="SearchBar">
-      <input type="text" placeholder="Search title..." />
+      <input type="text" placeholder="Search title..." onChange={props.onSearch}/>
       <button>Search</button>
     </div>
   );
