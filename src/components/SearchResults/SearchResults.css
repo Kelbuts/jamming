@@ -1,0 +1,5 @@
+.SearchResults {
+    border: 1px solid red;
+    width: 49%;
+    display: inline-block;
+}
