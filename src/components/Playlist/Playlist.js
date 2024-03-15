@@ -15,7 +15,10 @@ function Playlist(props) {
           defaultValue={props.playListName} 
           type="text" 
           placeholder="Playlist name..." />
-        <TrackList tracks={props.tracks} />
+        <TrackList 
+          tracks={props.tracks} 
+          onRemove={props.onRemove}
+          />
         <button>Save To Spotify {props.playListName}</button>
       </div>
     );
