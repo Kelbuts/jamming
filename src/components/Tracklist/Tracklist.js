@@ -4,7 +4,6 @@ import Track from '../Track/Track';
 
 
 function TrackList(props) {
-  console.log(props)
 
     return (
       <div className="TrackList">

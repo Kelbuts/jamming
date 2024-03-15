@@ -28,16 +28,22 @@ const TRACKS = [
 
 function App() {
   const [searchResults, setSearchResults] = useState([]);
+  const [playListName, setPlayListName] = useState('Playlist Name');
+  const [playListTracks, setPlayListTracks] = useState([]);
 
   const search = () => {
     setSearchResults(TRACKS)
   }
 
+  const setTracks = () => {
+    setPlayListTracks(TRACKS)
+  }
+
   return (
     <div className="App">
-      <SearchBar onSearch={search}/>
+      <SearchBar onSearch={search} setTracks={setTracks} />
       <SearchResults searchResults={searchResults} />
-      <PlayList />
+      <PlayList onNameChange={setPlayListName} playListName={playListName} tracks={playListTracks} />
     </div>
   );
 }
