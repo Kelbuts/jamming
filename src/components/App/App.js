@@ -47,7 +47,7 @@ function App() {
   }
 
   const removeTrack = (track) => {
-
+    setPlayListTracks(playListTracks.filter((currentTrack) => currentTrack.id !== track.id))
   }
 
   return (
