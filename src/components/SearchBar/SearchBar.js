@@ -1,11 +1,23 @@
-import './SearchBar.css';
-
+import "./SearchBar.css";
+import * as React from "react";
+import Button from "@mui/material/Button";
+import TextField from "@mui/material/TextField";
 
 function SearchBar(props) {
+  const onSearchTermUpdate = (event) => {
+    props.onSearchTermUpdate(event.target.value)
+  }
   return (
     <div className="SearchBar">
-      <input type="text" placeholder="Search title..." onChange={props.onSearch}/>
-      <button onClick={props.setTracks}>Search</button>
+      <TextField
+        color="success"
+        label="Search title..."
+        variant="filled"
+        onChange={onSearchTermUpdate}
+      />
+      <Button variant="outlined" color="success" onClick={props.onSearchButton}>
+        SEARCH
+      </Button>
     </div>
   );
 }

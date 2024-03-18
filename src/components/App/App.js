@@ -1,64 +1,84 @@
 import "./App.css";
 import React, { useState } from "react";
+import "@fontsource/roboto/300.css";
+import "@fontsource/roboto/400.css";
+import "@fontsource/roboto/500.css";
+import "@fontsource/roboto/700.css";
 
 import SearchBar from "../SearchBar/SearchBar";
 import SearchResults from "../SearchResults/SearchResults";
 import PlayList from "../Playlist/Playlist";
+import Spotify from "../../util/Spotify";
 
 const TRACKS = [
   {
     name: "Relic",
     artist: "Vice State",
     album: "Relic",
-    id: "3toHaLUlHzXqoduPCDVQZp?si=cdea325b5b814c94",
+    id: "3toHaLUlHzXqoduPCDVQZp",
   },
   {
     name: "Fallen Angel",
     artist: "KETTAMA",
     album: "Fallen Angel",
-    id: "67zHx368N96FXQrz0iXzWO?si=848191a4827f406f",
+    id: "67zHx368N96FXQrz0iXzWO",
   },
   {
     name: "Sugar",
     artist: "Kincaid",
     album: "Sugar",
-    id: "3WVYDLSVgs1mnUsGeI0ezM?si=4c33150389774dfd",
+    id: "3WVYDLSVgs1mnUsGeI0ezM",
   },
 ];
 
 function App() {
   const [searchResults, setSearchResults] = useState([]);
-  const [playListName, setPlayListName] = useState('Playlist Name');
+  const [playListName, setPlayListName] = useState("Playlist Name");
   const [playListTracks, setPlayListTracks] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('')
 
   const search = () => {
-    setSearchResults(TRACKS)
-  }
+    Spotify.search(searchTerm);
+  };
 
   const setTracks = () => {
-    setPlayListTracks(TRACKS)
-  }
+    setPlayListTracks(TRACKS);
+  };
 
   const addTrack = (track) => {
     if (playListTracks.some((currentTrack) => currentTrack.id === track.id)) {
       return;
     }
     setPlayListTracks((prevTracks) => [...prevTracks, track]);
-  }
+  };
 
   const removeTrack = (track) => {
-    setPlayListTracks(playListTracks.filter((currentTrack) => currentTrack.id !== track.id))
-  }
+    setPlayListTracks(
+      playListTracks.filter((currentTrack) => currentTrack.id !== track.id)
+    );
+  };
+
+  const onSave = () => {
+    console.log(playListName);
+    console.log(
+      playListTracks.map((track) => {
+        return `spotify:track:${track.id}`;
+      })
+    );
+  };
 
   return (
     <div className="App">
-      <SearchBar onSearch={search} setTracks={setTracks} />
+      <SearchBar onSearchButton={search} setTracks={setTracks} onSearchTermUpdate={setSearchTerm}
+      />
       <SearchResults searchResults={searchResults} onAdd={addTrack} />
-      <PlayList 
-        onNameChange={setPlayListName} 
-        playListName={playListName} 
+      <PlayList
+        onNameChange={setPlayListName}
+        playListName={playListName}
         tracks={playListTracks}
-        onRemove={removeTrack} />
+        onRemove={removeTrack}
+        onSave={onSave}
+      />
     </div>
   );
 }
