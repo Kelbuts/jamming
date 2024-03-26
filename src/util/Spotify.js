@@ -43,7 +43,6 @@ const Spotify = {
           location = spotifyUrl;
         }
       });
-    
   },
 
   search(term) {

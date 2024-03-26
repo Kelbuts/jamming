@@ -1,5 +1,3 @@
-
-
 import "./App.css";
 import React, { useState, useEffect } from "react";
 import "@fontsource/roboto/300.css";
@@ -12,7 +10,6 @@ import SearchResults from "../SearchResults/SearchResults";
 import PlayList from "../Playlist/Playlist";
 import Spotify from "../../util/Spotify";
 
-
 function App() {
   const [searchResults, setSearchResults] = useState([]);
   const [playListName, setPlayListName] = useState("Playlist Name");
@@ -20,7 +17,9 @@ function App() {
   const [searchTerm, setSearchTerm] = useState("");
 
   const search = () => {
-    Spotify.search(searchTerm).then(setSearchResults);
+    if (searchTerm != "") {
+      Spotify.search(searchTerm).then(setSearchResults);
+    }
   };
 
   const addTrack = (track) => {
@@ -38,20 +37,17 @@ function App() {
 
   const onSave = () => {
     Spotify.savePlaylist(playListName, playListTracks).then(() => {
-      setPlayListTracks([])
+      setPlayListTracks([]);
     });
   };
 
   useEffect(() => {
-    Spotify.init()
+    Spotify.init();
   });
 
   return (
     <div className="App">
-      <SearchBar
-        onSearchButton={search}
-        onSearchTermUpdate={setSearchTerm}
-      />
+      <SearchBar onSearchButton={search} onSearchTermUpdate={setSearchTerm} />
       <SearchResults searchResults={searchResults} onAdd={addTrack} />
       <PlayList
         onNameChange={setPlayListName}
