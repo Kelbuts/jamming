@@ -35,10 +35,10 @@ function App() {
   const [searchResults, setSearchResults] = useState([]);
   const [playListName, setPlayListName] = useState("Playlist Name");
   const [playListTracks, setPlayListTracks] = useState([]);
-  const [searchTerm, setSearchTerm] = useState('')
+  const [searchTerm, setSearchTerm] = useState("");
 
   const search = () => {
-    Spotify.search(searchTerm);
+    Spotify.search(searchTerm).then(setSearchResults);
   };
 
   const setTracks = () => {
@@ -59,17 +59,17 @@ function App() {
   };
 
   const onSave = () => {
-    console.log(playListName);
-    console.log(
-      playListTracks.map((track) => {
-        return `spotify:track:${track.id}`;
-      })
-    );
+    Spotify.savePlaylist(playListName, playListTracks).then(() => {
+      setPlayListTracks([])
+    });
   };
 
   return (
     <div className="App">
-      <SearchBar onSearchButton={search} setTracks={setTracks} onSearchTermUpdate={setSearchTerm}
+      <SearchBar
+        onSearchButton={search}
+        setTracks={setTracks}
+        onSearchTermUpdate={setSearchTerm}
       />
       <SearchResults searchResults={searchResults} onAdd={addTrack} />
       <PlayList
