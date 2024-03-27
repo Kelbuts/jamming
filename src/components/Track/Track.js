@@ -1,9 +1,7 @@
 import "./Track.css";
-import useSound from 'use-sound';
-import add from '../../sounds/bite.mp3';
-import del from '../../sounds/disable-sound.mp3';
-
-
+import useSound from "use-sound";
+import add from "../../sounds/bite.mp3";
+import del from "../../sounds/disable-sound.mp3";
 
 function Track(props) {
   const [addPlay] = useSound(add);
@@ -12,7 +10,7 @@ function Track(props) {
     props.onAdd(props.track);
     addPlay();
   };
-   
+
   const removeTrack = () => {
     props.onRemove(props.track);
     delPlay();

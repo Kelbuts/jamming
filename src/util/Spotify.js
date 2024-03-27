@@ -16,7 +16,6 @@ const Spotify = {
     const params = "?" + location.href.split("#")[1];
     const urlParams = new URLSearchParams(params);
     token = urlParams.get("access_token");
-    console.log(token);
     if (token != null) {
       //save token locally
       localStorage.setItem("token", token);
@@ -46,6 +45,9 @@ const Spotify = {
   },
 
   search(term) {
+    if(term == '') {
+      throw new Error('Invalid input')
+    }
     return fetch(`${apiRoot}search?q=${term}&type=track`, {
       headers: { Authorization: `Bearer ${token}` },
     })

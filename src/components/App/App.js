@@ -5,7 +5,6 @@ import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
 
-
 import SearchBar from "../SearchBar/SearchBar";
 import SearchResults from "../SearchResults/SearchResults";
 import PlayList from "../Playlist/Playlist";
@@ -18,7 +17,9 @@ function App() {
   const [searchTerm, setSearchTerm] = useState("");
 
   const search = () => {
+    console.log('app search', searchTerm)
     if (searchTerm != "") {
+      console.log('app search!!', searchTerm)
       Spotify.search(searchTerm).then(setSearchResults);
     }
   };
