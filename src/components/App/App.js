@@ -17,24 +17,28 @@ function App() {
   const [searchTerm, setSearchTerm] = useState("");
 
   const search = () => {
-    
-    if (searchTerm != "") {
-      
+    if (searchTerm !== "") {
       Spotify.search(searchTerm).then(setSearchResults);
     }
   };
 
   const addTrack = (track) => {
-    if (playListTracks.some((currentTrack) => currentTrack.id === track.id)) {
-      return;
+    if (!playListTracks.some((currentTrack) => currentTrack.id === track.id)) {
+      // If track isn't in Playlist, add track to playlist
+      setPlayListTracks((prevTracks) => [...prevTracks, track]);
     }
-    setPlayListTracks((prevTracks) => [...prevTracks, track]);
+
+    ///Remove track from searchresults
+    setSearchResults(
+      searchResults.filter((currentTrack) => currentTrack.id !== track.id)
+    );
   };
 
   const removeTrack = (track) => {
     setPlayListTracks(
       playListTracks.filter((currentTrack) => currentTrack.id !== track.id)
     );
+    setSearchResults((prevTracks) => [...prevTracks, track]);
   };
 
   const onSave = () => {
