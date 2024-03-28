@@ -1,6 +1,7 @@
 .App {
   background-image: url('./Spotify_Img.jpg');
   background-size: cover;
+  overflow: auto;
   height: 100%;
   text-align: center;
 

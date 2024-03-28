@@ -14,7 +14,7 @@ function SearchBar(props) {
         id="search-input"
         color="success"
         label="Search title..."
-        variant="filled"
+        variant="outlined"
         onChange={onSearchTermUpdate}
       />
       <Button id='search-btn' variant="outlined" color="success" onClick={props.onSearchButton}>

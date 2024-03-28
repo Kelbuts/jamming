@@ -17,9 +17,9 @@ function App() {
   const [searchTerm, setSearchTerm] = useState("");
 
   const search = () => {
-    console.log('app search', searchTerm)
+    
     if (searchTerm != "") {
-      console.log('app search!!', searchTerm)
+      
       Spotify.search(searchTerm).then(setSearchResults);
     }
   };

@@ -5,7 +5,7 @@ import { act } from "react-dom/test-utils";
 import { render, screen, fireEvent } from "@testing-library/react";
 import Spotify from "../../util/Spotify";
 
-xit("runs the App", () => {
+it("runs the App", () => {
   const div = document.createElement("div");
   const root = ReactDOM.createRoot(div);
   act(() => {
@@ -13,24 +13,28 @@ xit("runs the App", () => {
   });
 });
 
-xit("render App", () => {
+it("render App", () => {
   render(<App />);
   expect(screen.getByText("SEARCH")).toBeInTheDocument();
 });
 
-xit("searches without crashing", () => {
+it("searches without crashing", () => {
   render(<App />);
   const button = document.querySelector("#search-btn");
   fireEvent.click(button);
 });
 
-it("updates search term on input", () => {
+it("calls search with typed input", () => {
   const spy = jest.spyOn(Spotify, "search");
 
   let app = render(<App />);
-  const button = document.querySelector("#search-btn");
-  const input = document.querySelector("#search-input");
-  fireEvent.keyDown(input, { key: "A", code: "KeyA" });
+  const button = document.getElementById("search-btn");
+  const input = document.getElementById("search-input");
+  const randomText = "kjhgvssdsf";
+  fireEvent.change(input, {
+    target: { value: randomText },
+  });
   fireEvent.click(button);
   expect(spy).toHaveBeenCalled();
+  expect(spy.mock.calls[0][0]).toBe(randomText)
 });
