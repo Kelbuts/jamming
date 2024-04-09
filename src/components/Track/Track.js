@@ -20,7 +20,14 @@ function Track(props) {
     if (props.isRemoval) {
       return <button onClick={removeTrack}>-</button>;
     } else {
-      return <button onClick={addTrack}>+</button>;
+      return (
+        <div>
+          <audio controls>
+            <source src={props.track.preview}></source>
+          </audio>
+          <button onClick={addTrack}>+</button>;
+        </div>
+      );
     }
   };
   return (
@@ -29,6 +36,7 @@ function Track(props) {
       <p>
         {props.track.artist} | {props.track.album}
       </p>
+
       {renderAction()}
     </div>
   );

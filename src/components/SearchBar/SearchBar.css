@@ -1,6 +1,4 @@
 .SearchBar {
-      
-     
       padding-top: 7rem;
       margin-bottom: 7rem;
       
@@ -10,4 +8,5 @@
 .SearchBar button,
 .SearchBar button:hover {
   background-color: black;
+  
 }

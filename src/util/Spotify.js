@@ -61,6 +61,7 @@ const Spotify = {
           album: item.album.name,
           id: item.id,
           uri: item.uri,
+          preview: item.preview_url,
         }));
       });
   },
