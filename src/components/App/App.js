@@ -15,6 +15,7 @@ function App() {
   const [playListName, setPlayListName] = useState("Playlist Name");
   const [playListTracks, setPlayListTracks] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
+  const [isSaving, setIsSaving] = useState(false);
 
   const search = () => {
     const trackNotInPlayList = (track) => {
@@ -50,8 +51,10 @@ function App() {
   };
 
   const onSave = () => {
+    setIsSaving(true);
     Spotify.savePlaylist(playListName, playListTracks).then(() => {
       setPlayListTracks([]);
+      setIsSaving(false);
     });
   };
 
@@ -69,6 +72,8 @@ function App() {
         tracks={playListTracks}
         onRemove={removeTrack}
         onSave={onSave}
+        isSaving={isSaving}
+
       />
     </div>
   );
