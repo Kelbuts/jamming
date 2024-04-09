@@ -17,8 +17,16 @@ function App() {
   const [searchTerm, setSearchTerm] = useState("");
 
   const search = () => {
+    const trackNotInPlayList = (track) => {
+      return !playListTracks.some(
+        (playListTrack) => playListTrack.id === track.id
+      );
+    };
     if (searchTerm !== "") {
-      Spotify.search(searchTerm).then(setSearchResults);
+      Spotify.search(searchTerm).then((spotifySearchResults) => {
+        let newSearchResults = spotifySearchResults.filter(trackNotInPlayList);
+        setSearchResults(newSearchResults);
+      });
     }
   };
 
