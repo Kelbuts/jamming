@@ -8,9 +8,16 @@ const accessToken =
 const apiRoot = "https://api.spotify.com/v1/";
 let token;
 
-const URL = process.env.URL;
+let URL;
 
-const spotifyUrl = `https://accounts.spotify.com/authorize?scope=playlist-modify-private%20playlist-modify-public&response_type=token&client_id=${clientID}&redirect_uri=${URL}`;
+if (process.env.NODE_ENV === "development") {
+  URL = "http://localhost:3000/";
+} else {
+  URL = "https://jaming-kelbuts.netlify.app/";
+}
+
+const spotifyUrl =
+  `https://accounts.spotify.com/authorize?scope=playlist-modify-private%20playlist-modify-public&response_type=token&client_id=${clientID}&redirect_uri=${URL}`;
 
 const Spotify = {
   init() {
@@ -47,8 +54,8 @@ const Spotify = {
   },
 
   search(term) {
-    if(term == '') {
-      throw new Error('Invalid input')
+    if (term == "") {
+      throw new Error("Invalid input");
     }
     return fetch(`${apiRoot}search?q=${term}&type=track`, {
       headers: { Authorization: `Bearer ${token}` },
