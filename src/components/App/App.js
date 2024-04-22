@@ -34,7 +34,11 @@ function App() {
   const addTrack = (track) => {
     if (!playListTracks.some((currentTrack) => currentTrack.id === track.id)) {
       // If track isn't in Playlist, add track to playlist
-      setPlayListTracks((prevTracks) => [...prevTracks, track]);
+      setPlayListTracks((prevTracks) => {
+        const newTrackList = [...prevTracks, track];
+        localStorage.setItem("playlist", JSON.stringify(newTrackList));
+        return newTrackList;
+      });
     }
 
     ///Remove track from searchresults
@@ -44,9 +48,13 @@ function App() {
   };
 
   const removeTrack = (track) => {
-    setPlayListTracks(
-      playListTracks.filter((currentTrack) => currentTrack.id !== track.id)
-    );
+    setPlayListTracks(() => {
+      const newTrackList = playListTracks.filter(
+        (currentTrack) => currentTrack.id !== track.id
+      );
+      localStorage.setItem("playlist", JSON.stringify(newTrackList));
+      return newTrackList;
+    });
     setSearchResults((prevTracks) => [...prevTracks, track]);
   };
 
@@ -54,13 +62,16 @@ function App() {
     setIsSaving(true);
     Spotify.savePlaylist(playListName, playListTracks).then(() => {
       setPlayListTracks([]);
+      localStorage.setItem("playlist", "[]");
       setIsSaving(false);
     });
   };
 
   useEffect(() => {
     Spotify.init();
-  });
+    const newTrackList = JSON.parse(localStorage.getItem("playlist"));
+    setPlayListTracks(newTrackList);
+  },[]);
 
   return (
     <div className="App">
@@ -73,7 +84,6 @@ function App() {
         onRemove={removeTrack}
         onSave={onSave}
         isSaving={isSaving}
-
       />
     </div>
   );
