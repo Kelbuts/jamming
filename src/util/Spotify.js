@@ -8,7 +8,9 @@ const accessToken =
 const apiRoot = "https://api.spotify.com/v1/";
 let token;
 
-const spotifyUrl = `https://accounts.spotify.com/authorize?scope=playlist-modify-private%20playlist-modify-public&response_type=token&client_id=${clientID}&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2F`;
+const URL = process.env.URL;
+
+const spotifyUrl = `https://accounts.spotify.com/authorize?scope=playlist-modify-private%20playlist-modify-public&response_type=token&client_id=${clientID}&redirect_uri=${URL}`;
 
 const Spotify = {
   init() {
